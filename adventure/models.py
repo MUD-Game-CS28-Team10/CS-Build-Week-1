@@ -12,6 +12,12 @@ class Room(models.Model):
     s_to = models.IntegerField(default=0)
     e_to = models.IntegerField(default=0)
     w_to = models.IntegerField(default=0)
+    x_c = models.IntegerField(default=0)
+    y_c = models.IntegerField(default=0)
+
+    def __str__(self):
+        return(f"{self.title} {self.description}")
+
     def connectRooms(self, destinationRoom, direction):
         destinationRoomID = destinationRoom.id
         try:
@@ -31,8 +37,10 @@ class Room(models.Model):
                 print("Invalid direction")
                 return
             self.save()
+    
     def playerNames(self, currentPlayerID):
         return [p.user.username for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
+    
     def playerUUIDs(self, currentPlayerID):
         return [p.uuid for p in Player.objects.filter(currentRoom=self.id) if p.id != int(currentPlayerID)]
 
