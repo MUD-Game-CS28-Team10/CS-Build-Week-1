@@ -19,7 +19,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool)
 # DEBUG = 'True'
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1',            'csninjas.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'csninjas.herokuapp.com']
 
 
 # Application definition
@@ -92,13 +92,22 @@ WSGI_APPLICATION = 'adv_project.wsgi.application'
 #     }
 # }
 
+DB_USER = config('DB_USER')
+DB_NAME = config('DB_NAME')
+ENGINE = config('ENGINE')
+DB_PASSWORD = config('DB_PASSWORD')
+DB_HOST = config('DB_HOST')
+DB_PORT = config('DB_PORT')
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'adventure',
-        'DB_NAME': 'adventure',
-        'DB_USER': 'postgres',
-        'DB_PASSWORD': '',
+        'ENGINE': ENGINE,
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'DB_NAME': DB_NAME,
+        'DB_USER': DB_USER,
+        'DB_PASSWORD': DB_PASSWORD,
         'DB_HOST': 'localhost',
         'DB_PORT': 5432
     }
@@ -109,8 +118,6 @@ DATABASES = {
 # DATABASES = {
 #     'default': dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600)
 # }
-
-
 
 
 # Password validation
@@ -144,7 +151,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-CORS_ORIGIN_ALLOW_ALL=True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -167,12 +174,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATIC_URL = '/staticfiles/'
 
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Make sure you have at least one file inside the img directory inside the staticfiles directory
 # It doesn't matter if you don't use the file, but the dir can't be empty
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'staticfiles/img')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles/img')
+                    ]
 
 import django_heroku
 django_heroku.settings(locals())
